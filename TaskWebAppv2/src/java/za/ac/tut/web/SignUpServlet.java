@@ -7,12 +7,17 @@ package za.ac.tut.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.Date;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import za.ac.tut.bl.ejb.UserFacadeLocal;
+
+
+
+
 import za.ac.tut.entities.User;
 
 /**
@@ -32,7 +37,8 @@ public class SignUpServlet extends HttpServlet {
 
         User user = new User();
         user.setUsername(username);
-        user.setPassword(password); // Hash the password in a real app
+        user.setPassword(password); 
+        //user.setCreationDate(new Date());
 
         try {
             userFacade.create(user);

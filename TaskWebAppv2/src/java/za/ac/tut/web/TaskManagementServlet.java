@@ -7,6 +7,8 @@ package za.ac.tut.web;
 
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import javax.ejb.EJB;
 import javax.servlet.ServletException;
@@ -15,6 +17,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import za.ac.tut.bl.ejb.TaskFacadeLocal;
+
+
+ 
 import za.ac.tut.entities.Task;
 import za.ac.tut.entities.User;
 
@@ -36,6 +41,7 @@ public class TaskManagementServlet extends HttpServlet {
             // Handle Add Task
             String title = request.getParameter("title");
             String description = request.getParameter("description");
+            //String date = request.getParameter("dueDate");
 
             // Retrieve current user from session
             HttpSession session = request.getSession();
@@ -45,6 +51,13 @@ public class TaskManagementServlet extends HttpServlet {
                 response.sendRedirect("login.jsp");
                 return;
             }
+            
+            //if (date == null || date.isEmpty()) {
+            //request.setAttribute("error", "Due date is required.");
+            //request.getRequestDispatcher("addTaskOutcome.jsp").forward(request, response);
+            //return;
+        
+        
 
             // Create and persist the new task
             Task newTask = new Task();
@@ -53,8 +66,14 @@ public class TaskManagementServlet extends HttpServlet {
             newTask.setUser(currentUser);
 
             try {
+                //SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+                //Date dueDate = sdf.parse(date);
+                //newTask.setDueDate(dueDate);
+                
                 taskFacade.create(newTask);
                 // Redirect to confirmation page
+                //request.setAttribute("dueDate", date);
+
                 request.setAttribute("message", "Task successfully added.");
                 request.getRequestDispatcher("addTaskOutcome.jsp").forward(request, response);
             } catch (Exception e) {
@@ -92,6 +111,15 @@ public class TaskManagementServlet extends HttpServlet {
 
     private void handleUpdateTask(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        HttpSession session = request.getSession(false); // Get existing session, don't create new
+    if (session == null || session.getAttribute("currentUser") == null) {
+        response.sendRedirect("login.jsp");
+        return;
+    }
+
+    User currentUser = (User) session.getAttribute("currentUser");
+        
         Long taskId = Long.valueOf(request.getParameter("taskId"));
         String newTitle = request.getParameter("title");
         String newDescription = request.getParameter("description");
@@ -103,8 +131,8 @@ public class TaskManagementServlet extends HttpServlet {
                 taskToUpdate.setDescription(newDescription);
                 taskFacade.edit(taskToUpdate); // Update the task
             }
-            response.sendRedirect("viewTasks"); // Refresh task list
-            
+            request.getRequestDispatcher("editTaskOutcome.jsp").forward(request, response);
+
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Error updating the task.");
@@ -121,7 +149,7 @@ public class TaskManagementServlet extends HttpServlet {
             if (taskToDelete != null) {
                 taskFacade.remove(taskToDelete); // Delete the task
             }
-            response.sendRedirect("viewTasks"); // Refresh task list
+             request.getRequestDispatcher("deleteTaskOutcome.jsp").forward(request, response);
         } catch (Exception e) {
             e.printStackTrace();
             request.setAttribute("error", "Error deleting the task.");

@@ -6,12 +6,14 @@
 package za.ac.tut.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -31,6 +33,7 @@ public class User implements Serializable {
 
     @Column(nullable = false)
     private String password;
+    
 
     public User() {
     }
@@ -50,9 +53,8 @@ public class User implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
-    
-    
 
+   
     public Long getId() {
         return id;
     }

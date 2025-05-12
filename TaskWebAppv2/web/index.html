@@ -5,19 +5,78 @@ To change this template file, choose Tools | Templates
 and open the template in the editor.
 -->
 <html>
-    <head>
-        <title>Welcome Page</title>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <h1>Welcome Page</h1>  
-        <p>
-            Welcome to THE TASK APP<br>
-            Please choose one option from the menu below:
-        </p>
-        <ol>
-            <li>Click <a href="login.jsp">here</a> to log in.</li>
-            <li>Click <a href="signup.jsp">here</a> to sign up.</li>
-        </ol>
+<head>
+    <title>Welcome to Taskly</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            height: 100vh;
+            background: linear-gradient(135deg, #ffc0cb, #ff69b4, #ff1493);
+            background-size: 200% 200%;
+            animation: gradientMove 10s ease infinite;
+            color: #fff;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        h1 {
+            font-size: 3rem;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 30px;
+        }
+
+        ol {
+            list-style: none;
+            padding: 0;
+        }
+
+        ol li {
+            margin: 15px 0;
+        }
+
+        a {
+            text-decoration: none;
+            background-color: #fff;
+            color: #d63384;
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: bold;
+            transition: background-color 0.3s, color 0.3s;
+            font-size: 1rem;
+        }
+
+        a:hover {
+            background-color: #d63384;
+            color: #fff;
+        }
+    </style>
+</head>
+<body>
+    <h1>Welcome to Taskly</h1>
+    <p>
+        Your smart and simple task management app 🌟<br>
+        Please choose one option from the menu below:
+    </p>
+    <ol>
+        <li><a href="login.jsp">Login</a></li>
+        <li><a href="signup.jsp">Sign Up</a></li>
+    </ol>
+</body>
 </html>

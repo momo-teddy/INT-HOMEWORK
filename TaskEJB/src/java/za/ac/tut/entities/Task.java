@@ -6,6 +6,7 @@
 package za.ac.tut.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -14,6 +15,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.persistence.Temporal;
 
 /**
  *
@@ -33,6 +35,9 @@ public class Task implements Serializable {
 
     @Column
     private String description;
+    
+    //@Temporal(javax.persistence.TemporalType.DATE)
+    //private Date dueDate;
 
     @ManyToOne
     @JoinColumn(name = "USER_ID", nullable = false)
@@ -64,8 +69,7 @@ public class Task implements Serializable {
     public void setUser(User user) {
         this.user = user;
     }
-    
-    
+
 
     public Long getId() {
         return id;
